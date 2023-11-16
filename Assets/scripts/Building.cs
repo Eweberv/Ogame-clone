@@ -9,7 +9,7 @@ public class Building : MonoBehaviour
     private string _buildingName;
     protected Sprite _buildingSprite;
     protected string _description;
-    protected List<ProductionData> _productionDurations;
+    protected List<ProductionDuration> _productionDurations;
 
     public virtual void Init(string name, int level)
     {

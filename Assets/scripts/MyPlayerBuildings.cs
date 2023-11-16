@@ -8,6 +8,7 @@ public class MyPlayerBuildings : MonoBehaviour
     private MetalMine _metalMine;
     private CristalMine _cristalMine;
     private DeuteriumMine _deuteriumMine;
+    
     private Stats _stats;
     private Dictionary<string, Building> _buildingsDict = new Dictionary<string, Building>();
     
@@ -25,6 +26,8 @@ public class MyPlayerBuildings : MonoBehaviour
         _deuteriumMine = Building.AddComponent<DeuteriumMine>();
         _deuteriumMine.Init("Deuterium Mine", 0, 0, 0);
         _buildingsDict.Add(_deuteriumMine.BuildingName, _deuteriumMine);
+        
+        
     }
     
     void Start()
@@ -39,6 +42,11 @@ public class MyPlayerBuildings : MonoBehaviour
     public CristalMine MyCristalMine
     {
         get { return _cristalMine; }
+    }
+    
+    public DeuteriumMine MyDeuteriumMine
+    {
+        get { return _deuteriumMine; }
     }
 
     public Building GetBuilding(string buildingName)
