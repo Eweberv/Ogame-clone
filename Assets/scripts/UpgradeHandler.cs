@@ -17,22 +17,23 @@ public class UpgradeHandler : MonoBehaviour
         
         myPlayerBuildings = FindObjectOfType<MyPlayerBuildings>();
         stats = FindObjectOfType<Stats>();
-        upgradeMetalMineBtn.onClick.AddListener(delegate{upgradeMine(myPlayerBuildings.MyMetalMine);});
-        upgradeCristalMineBtn.onClick.AddListener(delegate{upgradeMine(myPlayerBuildings.MyCristalMine);});
     }
     
-    void upgradeMine(Mine mine)
+    public void upgradeBuilding(Building building)
     {
-        mine.Level += 1;
-        if (mine.name == "Metal Mine")
+        building.Level += 1;
+        if (building is Mine mine)
         {
-            mine.ProductionPerSecond += 1000;
+            if (mine.BuildingName == "Metal Mine")
+            {
+                mine.ProductionPerSecond += 1000;
+            }
+            else
+            {
+                mine.ProductionPerSecond += 500;
+            }
+            Debug.Log($"Mine infos: lvl:{mine.Level}, production: {mine.ProductionPerSecond}");
         }
-        else
-        {
-            mine.ProductionPerSecond += 500;
-        }
-        stats.UpdateMineStats();
-        Debug.Log($"Mine infos: lvl:{mine.Level}, production: {mine.ProductionPerSecond}");
+        stats.UpdateBuildingStats();
     }
 }

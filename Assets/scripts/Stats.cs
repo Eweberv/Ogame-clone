@@ -10,7 +10,7 @@ public class Stats : MonoBehaviour
     private TextMeshProUGUI _metalMineStatsText;
     private TextMeshProUGUI _cristalMineStatsText;
     
-    public void UpdateMineStats()
+    public void UpdateBuildingStats()
     {
         _metalMineStatsText.text = $"Metal mine ({_myPlayerBuildings.MyMetalMine.Level}) {_myPlayerBuildings.MyMetalMine.ProductionPerSecond}/s";
         _cristalMineStatsText.text = $"Cristal mine ({_myPlayerBuildings.MyCristalMine.Level}) {_myPlayerBuildings.MyCristalMine.ProductionPerSecond}/s";
@@ -27,6 +27,6 @@ public class Stats : MonoBehaviour
     
     void Start()
     {
-        UpdateMineStats();
+        UpdateBuildingStats();
     }
 }

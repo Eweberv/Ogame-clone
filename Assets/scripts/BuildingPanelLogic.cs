@@ -9,47 +9,53 @@ public class BuildingPanelLogic : MonoBehaviour
     //Init in Unity UI for now
     public GameObject ressourcesPreviewPanel;
     public GameObject ressourcesUpgradePanel;
+    //
+    
     private MyPlayerBuildings _myPlayerBuildings;
     private string _lastSelectedBuilding;
-
+    private UpgradeHandler _upgradeHandler;
+    private Building _selectedBuilding;
+    
     //for building infos//
     [SerializeField] private TextMeshProUGUI _buildingName;
     [SerializeField] private Image _buildingImage;
     [SerializeField] private TextMeshProUGUI _buildingProductionDuration;
     [SerializeField] private TextMeshProUGUI _buildingDescription;
+    [SerializeField] private Button _upgradeBuildingButton;
     //
     
+    public Button UpgradeBuildingButton
+    {
+        get { return _upgradeBuildingButton; }
+    }
     void Start()
     {
         _myPlayerBuildings = FindObjectOfType<MyPlayerBuildings>();
-        Debug.Log($"Ici myplayerbuildings {_myPlayerBuildings}");
+        _upgradeHandler = FindObjectOfType<UpgradeHandler>();
+        _selectedBuilding = null;
+        _upgradeBuildingButton.onClick.AddListener(delegate { _upgradeHandler.upgradeBuilding(_selectedBuilding);});
     }
     public void OnBuildingSelected(string buildingName)
     {
-        switch(buildingName)
+        Building selectedBuilding = _myPlayerBuildings.GetBuilding(buildingName);
+        if (selectedBuilding)
         {
-            case "Metal Mine":
-                DisplayBuildingInfo(_myPlayerBuildings.MyMetalMine);
-                break;
-            case "Cristal Mine":
-                DisplayBuildingInfo(_myPlayerBuildings.MyCristalMine);
-                break;
-            // TODO: Ajoutez des cas supplémentaires pour d'autres bâtiments
+            DisplayBuildingInfo(selectedBuilding);
         }
     }
 
     //TODO: remplacer Mine par Building qui peut gérer n'importe quel batiment
-    private void DisplayBuildingInfo(Mine mine)
+    private void DisplayBuildingInfo(Building building)
     {
-        OpenOrClosePanel(mine);
+        OpenOrClosePanel(building);
         
-        UpdatePanelWithBuildingInfo(mine);
+        UpdatePanelWithBuildingInfo(building);
     }
 
-    private void OpenOrClosePanel(Mine mine)
+    private void OpenOrClosePanel(Building building)
     {
         //if same building clicked, close current tab and display ressources preview panel again
-        if (_lastSelectedBuilding == mine.MineName)
+        if (_lastSelectedBuilding == building.BuildingName)
         {
             ressourcesUpgradePanel.SetActive(false);
             ressourcesPreviewPanel.SetActive(true);
@@ -58,7 +64,7 @@ public class BuildingPanelLogic : MonoBehaviour
         }
         
         //set current panel to clicked building
-        _lastSelectedBuilding = mine.MineName;
+        _lastSelectedBuilding = building.BuildingName;
         if (ressourcesPreviewPanel.activeSelf)
         {
             ressourcesPreviewPanel.SetActive(false);
@@ -66,11 +72,12 @@ public class BuildingPanelLogic : MonoBehaviour
         ressourcesUpgradePanel.SetActive(true);
     }
     
-    private void UpdatePanelWithBuildingInfo(Mine mine)
+    private void UpdatePanelWithBuildingInfo(Building building)
     {
-        _buildingName.text = mine.MineName;
-        // _buildingImage = ;
-        _buildingProductionDuration.text = $"Production duration: {mine.ProductionDuration.ToString()}s";
-        _buildingDescription.text = mine.Description;
+        _selectedBuilding = building;
+        _buildingName.text = building.BuildingName;
+        _buildingImage.sprite = building.BuildingSprite;
+        _buildingProductionDuration.text = $"Production duration: {building.ProductionDuration.ToString()}s";
+        _buildingDescription.text = building.Description;
     }
 }

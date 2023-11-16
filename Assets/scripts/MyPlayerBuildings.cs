@@ -5,20 +5,26 @@ using UnityEngine;
 
 public class MyPlayerBuildings : MonoBehaviour
 {
-    private MetalMine _myMetalMine;
-    private CristalMine _myCristalMine;
+    private MetalMine _metalMine;
+    private CristalMine _cristalMine;
+    private DeuteriumMine _deuteriumMine;
     private Stats _stats;
-
+    private Dictionary<string, Building> _buildingsDict = new Dictionary<string, Building>();
+    
     void Awake()
     {
         GameObject Building = new GameObject("Building");
-        _myMetalMine = Building.AddComponent<MetalMine>();
-        _myMetalMine.Init("Metal Mine", 0, 0, 0);
-
-        _myCristalMine = Building.AddComponent<CristalMine>();
-        _myCristalMine.Init("Cristal Mine", 0, 0, 0);
+        _metalMine = Building.AddComponent<MetalMine>();
+        _metalMine.Init("Metal Mine", 0, 0, 0);
+        _buildingsDict.Add(_metalMine.BuildingName, _metalMine);
         
-        Debug.Log($"name: {_myCristalMine.name}");
+        _cristalMine = Building.AddComponent<CristalMine>();
+        _cristalMine.Init("Cristal Mine", 0, 0, 0);
+        _buildingsDict.Add(_cristalMine.BuildingName, _cristalMine);
+
+        _deuteriumMine = Building.AddComponent<DeuteriumMine>();
+        _deuteriumMine.Init("Deuterium Mine", 0, 0, 0);
+        _buildingsDict.Add(_deuteriumMine.BuildingName, _deuteriumMine);
     }
     
     void Start()
@@ -28,10 +34,19 @@ public class MyPlayerBuildings : MonoBehaviour
     
     public MetalMine MyMetalMine
     {
-        get { return _myMetalMine; }
+        get { return _metalMine; }
     }
     public CristalMine MyCristalMine
     {
-        get { return _myCristalMine; }
+        get { return _cristalMine; }
+    }
+
+    public Building GetBuilding(string buildingName)
+    {
+        if (_buildingsDict.TryGetValue(buildingName, out Building building))
+        {
+            return building;
+        }
+        return null;
     }
 }

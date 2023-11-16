@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
-public class MetalMine : Mine
+public class DeuteriumMine : Mine
 {
     public override void Init(string name, int level, int productionPerSecond, int energyCost)
     {
@@ -26,7 +25,7 @@ public class MetalMine : Mine
             new ProductionData { level = 9, duration = 90 },
             new ProductionData { level = 10, duration = 100 },
         };
-        BuildingSprite = GameObject.Find("metalMineUpgradeBtn").GetComponent<Image>().sprite;
-        _description = "Used in the extraction of metal ore, metal mines are of primary importance to all emerging and established empires.";
+        BuildingSprite = GameObject.Find("deuteriumMineUpgradeBtn").GetComponent<Image>().sprite;
+        _description = "Deuterium is used as fuel for spaceships and is harvested in the deep sea. Deuterium is a rare substance and is thus relatively expensive.";
     }
 }

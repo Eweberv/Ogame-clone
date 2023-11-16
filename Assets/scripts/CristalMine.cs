@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.UI;
 
 public class CristalMine : Mine
 {
@@ -25,6 +26,7 @@ public class CristalMine : Mine
             new ProductionData { level = 9, duration = 170 },
             new ProductionData { level = 10, duration = 190 },
         };
+        BuildingSprite = GameObject.Find("cristalMineUpgradeBtn").GetComponent<Image>().sprite;
         _description = "Crystals are the main resource used to build electronic circuits and form certain alloy compounds.";
     }
 }
