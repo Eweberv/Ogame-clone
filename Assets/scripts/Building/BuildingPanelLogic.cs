@@ -77,7 +77,7 @@ public class BuildingPanelLogic : MonoBehaviour
         _selectedBuilding = building;
         _buildingName.text = building.BuildingName;
         _buildingImage.sprite = building.BuildingSprite;
-        _buildingProductionDuration.text = $"Production duration: {building.ProductionDuration.ToString()}s";
+        _buildingProductionDuration.text = $"Production duration: {building.NextProductionDuration.ToString()}s";
         _buildingDescription.text = building.Description;
     }
 }

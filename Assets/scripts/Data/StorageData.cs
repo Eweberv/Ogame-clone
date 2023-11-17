@@ -7,4 +7,5 @@ public class StorageData
 {
     public int level;
     public int capacity;
+    public int productionDuration;
 }

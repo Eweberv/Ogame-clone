@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class ProductionDuration
+public class MineData
 {
     public int level;
-    public int duration;
+    public int productionDuration;
+    public int energyCost;
+    public int productionPerSecond;
 }
