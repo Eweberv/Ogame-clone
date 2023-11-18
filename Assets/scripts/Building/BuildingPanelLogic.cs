@@ -33,7 +33,7 @@ public class BuildingPanelLogic : MonoBehaviour
         _myPlayerBuildings = FindObjectOfType<MyPlayerBuildings>();
         _upgradeHandler = FindObjectOfType<UpgradeHandler>();
         _selectedBuilding = null;
-        _upgradeBuildingButton.onClick.AddListener(delegate { _upgradeHandler.upgradeBuilding(_selectedBuilding);});
+        _upgradeBuildingButton.onClick.AddListener(delegate { _upgradeHandler.upgradeBuilding(_selectedBuilding, _buildingProductionDuration);});
     }
     public void OnBuildingSelected(string buildingName)
     {

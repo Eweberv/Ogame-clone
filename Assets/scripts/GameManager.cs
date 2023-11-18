@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
         
         //Init player ressources
         _playerRessources = _scripts.AddComponent<MyPlayerRessources>();
-        _playerRessources.Init(1000, 1000, 0);
+        _playerRessources.Init(1000, 1000, 0, 0);
 
         //Init player buildings
         _myPlayerBuildings = _scripts.AddComponent<MyPlayerBuildings>();

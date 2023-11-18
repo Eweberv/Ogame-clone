@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UpgradeHandler : MonoBehaviour
 {
@@ -16,22 +17,17 @@ public class UpgradeHandler : MonoBehaviour
         _displayBuildingLevel = FindObjectOfType<DisplayBuildingLevel>();
     }
     
-    public void upgradeBuilding(Building building)
+    public void upgradeBuilding(Building building, TextMeshProUGUI _buildingProductionDuration)
     {
         building.Level += 1;
         if (building is Mine mine)
         {
-            // if (mine.BuildingName == "Metal Mine")
-            // {
-            //     mine.ProductionPerSecond += 1000;
-            // }
-            // else
-            // {
-            //     mine.ProductionPerSecond += 500;
-            // }
+            mine.UpdateProductionPerSecond();
+            mine.UpdateEnergyCost();
             Debug.Log($"Mine infos: lvl:{mine.Level}, production: {mine.ProductionPerSecond}");
         }
         stats.UpdateBuildingStats();
+        _buildingProductionDuration.text = $"Production duration: {building.NextProductionDuration.ToString()}s";
         _displayBuildingLevel.UpdateBuildingLevel(building);
     }
 }

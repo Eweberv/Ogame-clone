@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,5 +36,13 @@ public class DeuteriumStorage : Storage
     public override List<StorageData> StorageDatas
     {
         get { return _storageDatas; }
+    }
+    
+    public override RessourcesData UpgradeCost => _upgradeCost;
+    public override void UpdateUpgradeCost()
+    {
+        _upgradeCost.metal = Convert.ToInt32(1000 * Math.Pow(2, _level - 1));
+        _upgradeCost.cristal = _upgradeCost.metal;
+        _upgradeCost.deuterium = 0;
     }
 }

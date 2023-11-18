@@ -5,17 +5,19 @@ using System.Linq;
 
 public abstract class Building : MonoBehaviour
 { 
-    protected int _level = -1;
+    protected int _level;
     protected string _buildingName;
     protected string _description;
     protected Sprite _buildingSprite;
+    protected RessourcesData _upgradeCost = new RessourcesData();
     
     public abstract int Level { get; set; }
     public abstract string BuildingName { get; }
     public abstract string Description { get; }
     public abstract Sprite BuildingSprite { get; set; }
     public abstract int NextProductionDuration { get; }
-
+    public abstract RessourcesData UpgradeCost { get; }
+    public abstract void UpdateUpgradeCost();
     public virtual void Init(string name, int level)
     {
         _buildingName = name;
