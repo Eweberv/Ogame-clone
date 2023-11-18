@@ -20,11 +20,16 @@ public class UpgradeHandler : MonoBehaviour
     public void upgradeBuilding(Building building, TextMeshProUGUI _buildingProductionDuration)
     {
         building.Level += 1;
-        if (building is Mine mine)
+        switch (building)
         {
-            mine.UpdateProductionPerSecond();
-            mine.UpdateEnergyCost();
-            Debug.Log($"Mine infos: lvl:{mine.Level}, production: {mine.ProductionPerSecond}");
+            case Mine mine:
+                mine.UpdateProductionPerSecond();
+                mine.UpdateEnergyCost();
+                Debug.Log($"Mine infos: lvl:{mine.Level}, production: {mine.ProductionPerSecond}");
+                break;
+            case Storage storage:
+                storage.UpdateStorageCapacity();
+                break;
         }
         stats.UpdateBuildingStats();
         _buildingProductionDuration.text = $"Production duration: {building.NextProductionDuration.ToString()}s";

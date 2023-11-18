@@ -85,16 +85,28 @@ public class MyPlayerRessources : MonoBehaviour
     void IncrementMetalCount()
     {
         Metal += myPlayerBuildings.MyMetalMine.ProductionPerSecond;
+        if (Metal > myPlayerBuildings.MetalStorage.Capacity)
+        {
+            Metal = myPlayerBuildings.MetalStorage.Capacity;
+        }
     }
     
     void IncrementCristalCount()
     {
         Cristal += myPlayerBuildings.MyCristalMine.ProductionPerSecond;
+        if (Cristal > myPlayerBuildings.CristalStorage.Capacity)
+        {
+            Cristal = myPlayerBuildings.CristalStorage.Capacity;
+        }
     }
      
     void IncrementDeuteriumCount()
     {
         Deuterium += myPlayerBuildings.MyDeuteriumMine.ProductionPerSecond;
+        if (Deuterium > myPlayerBuildings.DeuteriumStorage.Capacity)
+        {
+            Deuterium = myPlayerBuildings.DeuteriumStorage.Capacity;
+        }
     }
      
     void setCurrentEnergy()

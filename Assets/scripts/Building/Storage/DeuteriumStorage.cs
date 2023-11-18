@@ -8,6 +8,8 @@ public class DeuteriumStorage : Storage
     public override void Init(string name, int level)
     {
         base.Init(name, level);
+        UpdateUpgradeCost();
+        UpdateStorageCapacity();
     }
     void Awake()
     {
@@ -44,5 +46,13 @@ public class DeuteriumStorage : Storage
         _upgradeCost.metal = Convert.ToInt32(1000 * Math.Pow(2, _level - 1));
         _upgradeCost.cristal = _upgradeCost.metal;
         _upgradeCost.deuterium = 0;
+    }
+    
+    public override int Capacity => _capacity;
+
+    public override void UpdateStorageCapacity()
+    {
+        double exponent = Math.Exp(20.0 / 33.0 * _level);
+        _capacity = (int)Math.Floor(2.5 * exponent) * 5000;
     }
 }

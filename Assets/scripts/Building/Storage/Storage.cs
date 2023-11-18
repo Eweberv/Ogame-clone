@@ -10,6 +10,9 @@ public abstract class Storage : Building
    protected List<StorageData> _storageDatas;
    public abstract List<StorageData> StorageDatas { get; }
 
+   public abstract int Capacity {get;}
+   public abstract void UpdateStorageCapacity();
+   
    public override void Init(string name, int level)
    {
       base.Init(name, level);
@@ -23,15 +26,6 @@ public abstract class Storage : Building
       if (_storageDatas == null || _storageDatas.Count == 0)
       {
          Debug.LogError($"Storage not properly initialized ({_buildingName}): _storageDatas is empty or null");
-      }
-   }
-
-   public int Capacity
-   {
-      get
-      {
-         var currentCapacity = _storageDatas.FirstOrDefault(elem => elem.level == Level);
-         return currentCapacity != null ? currentCapacity.capacity : 0;
       }
    }
    public override int Level
