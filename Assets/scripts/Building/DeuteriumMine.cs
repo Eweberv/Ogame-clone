@@ -73,7 +73,12 @@ public class DeuteriumMine : Mine
 
     public override void UpdateEnergyCost()
     {
-        _energyCost = Convert.ToInt32(20 * _level * Math.Pow(1.1, _level));
+        _energyCost += Convert.ToInt32(20 * _level * Math.Pow(1.1, _level));
+    }
+    
+    public override int GetNextEnergyCost()
+    {
+        return Convert.ToInt32(20 * (_level + 1) * Math.Pow(1.1, _level + 1));;
     }
     
     public override int ProductionPerSecond => _productionPerSecond;

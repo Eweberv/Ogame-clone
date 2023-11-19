@@ -14,7 +14,7 @@ public abstract class Mine : Building
     public abstract void UpdateProductionPerSecond();
     public abstract int EnergyCost { get; }
     public abstract void UpdateEnergyCost();
-    
+    public abstract int GetNextEnergyCost();
     public abstract List<MineData> MineDatas { get; }
     
     public override void Init(string name, int level)
@@ -38,4 +38,6 @@ public abstract class Mine : Building
             return nextLevelData != null ? nextLevelData.productionDuration : 0;
         }
     }
+
+
 }
