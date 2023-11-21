@@ -6,17 +6,14 @@ using UnityEngine.UI;
 
 public class BuildingPanelLogic : MonoBehaviour
 {
-    //Init in Unity UI for now
-    public GameObject ressourcesPreviewPanel;
-    public GameObject ressourcesUpgradePanel;
-    private GameObject _ressourcesUpgradePanelDetailedInfosAdditional;
-    private GameObject _ressourcesUpgradePanelDetailedInfosUpgradeCost;
-    //
+    [SerializeField] private GameObject ressourcesPreviewPanel;
+    [SerializeField] private GameObject ressourcesUpgradePanel;
     
     private MyPlayerBuildings _myPlayerBuildings;
     private string _lastSelectedBuilding;
     private UpgradeHandler _upgradeHandler;
     private Building _selectedBuilding;
+    private BuildingQueue _buildingQueue;
     
     //for building infos//
     [SerializeField] private TextMeshProUGUI _buildingName;
@@ -26,6 +23,8 @@ public class BuildingPanelLogic : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _upgradeCost;
     [SerializeField] private TextMeshProUGUI _buildingDescription;
     [SerializeField] private Button _upgradeBuildingButton;
+    [SerializeField] private GameObject _ressourcesUpgradePanelDetailedInfosAdditional;
+    [SerializeField] private GameObject _ressourcesUpgradePanelDetailedInfosUpgradeCost;
     //
     
     public Button UpgradeBuildingButton
@@ -36,8 +35,7 @@ public class BuildingPanelLogic : MonoBehaviour
     {
         _myPlayerBuildings = FindObjectOfType<MyPlayerBuildings>();
         _upgradeHandler = FindObjectOfType<UpgradeHandler>();
-        _ressourcesUpgradePanelDetailedInfosAdditional = GameObject.Find("RessourcesUpgradePanelDetailedInfosAdditional");
-        _ressourcesUpgradePanelDetailedInfosUpgradeCost = GameObject.Find("RessourcesUpgradePanelDetailedInfosUpgradeCost");
+        _buildingQueue = FindObjectOfType<BuildingQueue>();
         
         _selectedBuilding = null;
         _upgradeBuildingButton.onClick.AddListener(delegate { _upgradeHandler.upgradeBuilding(_selectedBuilding, _buildingProductionDuration, _additionalInfos, _upgradeCost);});
@@ -107,40 +105,36 @@ public class BuildingPanelLogic : MonoBehaviour
         }
     }
 
-    private void DisplayUpgradeCost(Building building)
+    public void DisplayUpgradeCost(Building building)
     {
-        _ressourcesUpgradePanelDetailedInfosUpgradeCost.GetComponent<TextMeshProUGUI>().text = $"Upgrade cost: {building.UpgradeCost.metal} metal, {building.UpgradeCost.cristal} cristal, {building.UpgradeCost.deuterium} deuterium";
+        var bufferStr = "Upgrade cost: ";
+        if (building.UpgradeCost.metal > 0)
+        {
+            bufferStr += $"{building.UpgradeCost.metal} metal, ";
+        }
+        if (building.UpgradeCost.cristal > 0)
+        {
+            bufferStr += $"{building.UpgradeCost.cristal} cristal, ";
+        }
+        if (building.UpgradeCost.deuterium > 0)
+        {
+            bufferStr += $"{building.UpgradeCost.deuterium} deuterium";
+        }
+
+        if (bufferStr.EndsWith(", "))
+        {
+            bufferStr = bufferStr.Remove(bufferStr.Length - 2);
+        }
+        _ressourcesUpgradePanelDetailedInfosUpgradeCost.GetComponent<TextMeshProUGUI>().text = bufferStr;
     }
-    
-    // private void AddMineEnergyCost(Building building)
-    // {
-    //     if (building is Mine mine)
-    //     {
-    //         var RessourcesUpgradePanelDetailedInfos = GameObject.Find("RessourcesUpgradePanelDetailedInfos");
-    //         if (RessourcesUpgradePanelDetailedInfos != null)
-    //         {
-    //             GameObject RessourcesUpgradePanelDetailedInfosEnergy = new GameObject("RessourcesUpgradePanelDetailedInfosEnergy");
-    //             TextMeshProUGUI textMeshPro = RessourcesUpgradePanelDetailedInfosEnergy.AddComponent<TextMeshProUGUI>();
-    //             
-    //             textMeshPro.text = "Energy Cost: " + mine.EnergyCost.ToString();
-    //             textMeshPro.fontSize = 24;
-    //             textMeshPro.alignment = TextAlignmentOptions.Center;
-    //             textMeshPro.color = Color.white;
-    //             
-    //             RessourcesUpgradePanelDetailedInfosEnergy.transform.SetParent(RessourcesUpgradePanelDetailedInfos.transform, false);
-    //         }
-    //     }
-    // }
-    //
-    // private void RemoveMineEnergyCost(Building building)
-    // {
-    //     if (building is Mine mine)
-    //     {
-    //         var RessourcesUpgradePanelDetailedInfosEnergy = GameObject.Find("RessourcesUpgradePanelDetailedInfosEnergy");
-    //         if (RessourcesUpgradePanelDetailedInfosEnergy)
-    //         {
-    //             RessourcesUpgradePanelDetailedInfosEnergy.
-    //         }
-    //     }
-    // }
+
+    public void SetUpgradeButtonText(List<BuildingQueueData> _buildingQueueDataList)
+    {
+        if (_buildingQueueDataList.Count == 0)
+        {
+            UpgradeBuildingButton.GetComponentInChildren<TextMeshProUGUI>().text = "UPGRADE";
+        } else {
+            UpgradeBuildingButton.GetComponentInChildren<TextMeshProUGUI>().text = "QUEUE";
+        }
+    }
 }

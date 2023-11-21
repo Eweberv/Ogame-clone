@@ -58,7 +58,9 @@
      <Compile Include="Assets\scripts\Stats.cs" />
      <Compile Include="Assets\scripts\Building\BuildingPanelLogic.cs" />
      <Compile Include="Assets\scripts\Building\Storage\CristalStorage.cs" />
+     <Compile Include="Assets\scripts\Data\BuildingQueueData.cs" />
      <Compile Include="Assets\scripts\Building\MyPlayerBuildings.cs" />
+     <Compile Include="Assets\scripts\BuildingQueue.cs" />
      <Compile Include="Assets\scripts\Building\Storage\MetalStorage.cs" />
      <Compile Include="Assets\scripts\Data\MineData.cs" />
      <Compile Include="Assets\scripts\Building\MetalMine.cs" />

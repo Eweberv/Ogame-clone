@@ -19,7 +19,7 @@ public class CristalMine : Mine
         _mineDatas = new List<MineData>
         {
             new MineData { level = 0, productionDuration = 0},
-            new MineData { level = 1, productionDuration = 10},
+            new MineData { level = 1, productionDuration = 6},
             new MineData { level = 2, productionDuration = 20},
             new MineData { level = 3, productionDuration = 30},
             new MineData { level = 4, productionDuration = 40},
